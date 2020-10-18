@@ -7,5 +7,10 @@ pipeline {
         sh 'docker build -t yogicyberfrat:$BUILD_NUMBER .'
         }
       }
-     }
-   } 
+    stage('Test Run') {
+      steps {
+        sh 'docker run -d yogicyberfrat:$BUILD_NUMBER'
+      }
+    }
+   }
+  } 

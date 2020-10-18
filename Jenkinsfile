@@ -1,15 +1,33 @@
 pipeline {
+  environment {
+    registry = "yogin2004/yogindevops"
+    registryCredential = "DockerHub"
+    dockerImage = ''
+  }
+  
   agent any
   
   stages {
     stage('Build Docker Image') {
       steps {
-        sh 'docker build -t yogicyberfrat:$BUILD_NUMBER .'
+        script {
+          dokcerImage = docker.build registry + ":$BUILD_NUMBER"
+         }
+      }
+    }
+    
+    stage('Push to DockerHub') {
+      steps {
+        script {
+        docker.withRegistry('', registryCredential ) {
+          docker.Image.push()
         }
       }
+    }
+  }      
     stage('Test Run') {
       steps {
-        sh 'docker run -d yogicyberfrat:$BUILD_NUMBER'
+        sh 'docker run -d $yogin2004:$BUILD_NUMBER'
       }
     }
    }

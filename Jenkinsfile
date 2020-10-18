@@ -28,7 +28,7 @@ pipeline {
     
     stage('Test Run') {
       steps {
-        sh 'docker run -d $yogin2004:$BUILD_NUMBER'
+        sh 'docker run -d $registry:$BUILD_NUMBER'
       }
     }
    }

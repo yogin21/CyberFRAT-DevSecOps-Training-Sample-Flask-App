@@ -20,11 +20,12 @@ pipeline {
       steps {
         script {
         docker.withRegistry('', registryCredential ) {
-          docker.Image.push()
+          dockerImage.push()
         }
       }
     }
-  }      
+  }
+    
     stage('Test Run') {
       steps {
         sh 'docker run -d $yogin2004:$BUILD_NUMBER'
